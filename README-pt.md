@@ -1,4 +1,4 @@
-Select Language: [English](https://github.com/bulfaitelo/Santander-Scraper/blob/master/README-pt.md), **Portuguese**
+Select Language: [English](https://github.com/bulfaitelo/Santander-Scraper/blob/master/README.md), **Portuguese**
 ========
 # Santander Scraper
 

@@ -1,9 +1,9 @@
 {
-    "name": "bulfaitelo/tesouro-direto-scraper",
+    "name": "bulfaitelo/santander-scraper",
     "type": "library",
     "description": "The scripts with selenium use, extracts the data from the direct treasury",
     "keywords": ["scraper","Tesouro Direto"],
-    "homepage": "https://github.com/bulfaitelo/Tesouro-Direto-Scraper",
+    "homepage": "https://github.com/bulfaitelo/Santander-Scraper",
     "license": "MIT",
     "authors": [
         {
