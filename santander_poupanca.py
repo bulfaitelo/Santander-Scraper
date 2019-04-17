@@ -11,7 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 opts = FirefoxOptions()
-opts.add_argument("--headless")
+# opts.add_argument("--headless")
 firefox = webdriver.Firefox(firefox_options=opts)
 wait = WebDriverWait(firefox, 10)
 # ============================================
@@ -37,31 +37,23 @@ try:
     sleep(5)
     # ====================================
 
-    # preenchendo senha
-    firefox.switch_to.frame(wait.until(EC.visibility_of_element_located((By.NAME, 'Principal'))))
-    firefox.switch_to.frame(wait.until(EC.visibility_of_element_located((By.NAME, 'MainFrame'))))
-    senha = wait.until(EC.visibility_of_element_located((By.ID, 'txtSenha')))
+    # preenchendo senha    
+    senha = firefox.find_element_by_xpath('//*[@id="senha"]')    
     senha.send_keys("", user_pass)
     senha.send_keys(Keys.ENTER)
     sleep(5)
     #  ======================================
 
-    # CLICANDO NO MENU
-    firefox.switch_to.default_content()
-    firefox.switch_to.frame(wait.until(EC.visibility_of_element_located((By.NAME, 'Principal'))))
-    firefox.switch_to.frame(wait.until(EC.visibility_of_element_located((By.NAME, 'Corpo'))))
-    div_favoritos = firefox.find_element_by_xpath("//li[contains(@class, 'primeiro')]/ul/li[3]/a")
-    div_favoritos.click()
+    # CLICANDO NO MENU    
+    menu = firefox.find_element_by_xpath('//*[@id="investimentos"]')   
+    menu.click()        
+    menu_extrato = firefox.find_element_by_xpath('/html/body/div[2]/div[1]/div/div[1]/div/div/div/div/div[3]/div/div/div[2]/div/ul/li[3]/a')   
+    menu_extrato.click()
     sleep(5)
 
     # GERANDO EXTRATO
-    firefox.switch_to.default_content()
-    firefox.switch_to.frame(wait.until(EC.visibility_of_element_located((By.NAME, 'Principal'))))
-    firefox.switch_to.frame(wait.until(EC.visibility_of_element_located((By.NAME, 'Corpo'))))
-    firefox.switch_to.frame(wait.until(EC.visibility_of_element_located((By.NAME, 'iframePrinc'))))
-    firefox.switch_to.frame(wait.until(EC.visibility_of_element_located((By.NAME, 'detalhe'))))
-
-    table_extrato = firefox.find_elements_by_xpath("//table[contains(@class, 'tributo')][1]/tbody/tr")
+    
+    table_extrato = firefox.find_elements_by_xpath("/html/body/div[2]/div[1]/div/div[2]/div/div/div/div/div/div/div/div/div/article/div[2]/div/div/div/form/div/div/div/div[2]/div[1]/div/div[2]/div/table/tbody/tr")
     # extraindo extrato 
     print('{"extrato" : [')
     print_extrato = ""
@@ -80,7 +72,7 @@ try:
     #  ===============================================
 
     # Extraindo Aniversarios
-    table_aniversario = firefox.find_elements_by_xpath("//table[contains(@class, 'tributo')][3]/tbody/tr")
+    table_aniversario = firefox.find_elements_by_xpath("/html/body/div[2]/div[1]/div/div[2]/div/div/div/div/div/div/div/div/div/article/div[2]/div/div/div/form/div/div/div/div[2]/div[2]/div/div[2]/div/table/tbody/tr")
     print('{"aniversario": [')
     print_aniversario = ""
     for row2 in table_aniversario:
@@ -99,11 +91,11 @@ try:
 
 
     # Fechar navegador
-    firefox.quit()
+    # firefox.quit()
     print('{"fim": "%s"} ]' % str(datetime.now()))
 except Exception:  
-    if dir_file is not None:
-        firefox.save_screenshot(dir_file + "/" + default_file_name)
-        pass
-    firefox.quit()
+    # if dir_file is not None:
+    #     firefox.save_screenshot(dir_file + "/" + default_file_name)
+    #     pass
+    # firefox.quit()
     raise
